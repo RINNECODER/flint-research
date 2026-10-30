@@ -1,5 +1,7 @@
 # flint-research
 
+**Paper:** [Running, Pruning and Trying to Fine-Tune a 40B MoE on a 24 GB Mac](paper/flint-report.pdf) (technical report; LaTeX source in [paper/](paper/))
+
 Research notes, code and results from about a week (2026-10-28 to 10-30) of work on **Flint**, a 40B-parameter
 mixture-of-experts model, on a 24 GB Apple-silicon Mac and on cheap rented GPUs. The work covers three things:
 
