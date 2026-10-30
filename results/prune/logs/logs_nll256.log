@@ -1,0 +1,4 @@
+Fetching 12 files:   0%|          | 0/12 [00:00<?, ?it/s]Fetching 12 files: 100%|██████████| 12/12 [00:00<00:00, 5213.01it/s]
+[transformers] The tokenizer you are loading from '~/.cache/huggingface/hub/models--dima6312--Flint-40B-A2.5B-abliterated-Rec-4bit/snapshots/c0d2388f441399e43a0bdeccccf14f66043fedad' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+saved results/nll_256.npz: mean NLL 3.2827, top-1 vs text 0.5654, 53s
+~/locals-dflash/.venv/bin/python run.py nll  results/nll_256.npz  8.41s user 28.25s system 66% cpu 54.800 total

@@ -1,0 +1,5 @@
+base256-rerun-nodraft prompt0 run0: 1024 tokens, decode 27.5 tok/s, ttft 2.1s
+base256-rerun-nodraft prompt0 run1: 1024 tokens, decode 28.8 tok/s, ttft 1.2s
+base256-rerun-nodraft prompt1 run0: 1024 tokens, decode 31.0 tok/s, ttft 1.3s
+base256-rerun-nodraft prompt1 run1: 1024 tokens, decode 29.8 tok/s, ttft 1.3s
+{"label": "base256-rerun-nodraft", "gpu_peak_mb": 9076.92262, "decode_tps_mean": 29.253183987766334, "runs": [27.489718900222627, 28.789866761955366, 30.97084719651618, 29.76230309237117], "acceptance": null, "drafted": 0, "draft_tokens": 0}

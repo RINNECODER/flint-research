@@ -1,0 +1,30 @@
+From ac35d234da4f5adeff74f54b427f8c0a2326bc87 Mon Sep 17 00:00:00 2001
+From: RINNECODER <93304526+RINNECODER@users.noreply.github.com>
+Date: Thu, 29 Oct 2026 03:04:38 -0500
+Subject: [PATCH] Prompt chunks: no rewind marks for a strided KV view instead
+ of a 500 (BufferError: not C-contiguous)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ locals/hybrid_batch.py | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/locals/hybrid_batch.py b/locals/hybrid_batch.py
+index af2bafe..c0da398 100644
+--- a/locals/hybrid_batch.py
++++ b/locals/hybrid_batch.py
+@@ -151,7 +151,10 @@ def _marks(cache):
+     for c in cache:
+         if isinstance(c, (KVCache, BatchKVCache, QuantizedKVCache, BatchQuantizedKVCache)):
+             keep = {k: _held(v) for k, v in vars(c).items() if k not in ("keys", "values")}
+-            out.append((keep, _buffers(c)))
++            try:
++                out.append((keep, _buffers(c)))
++            except BufferError:  # a strided view (a prompt-cache entry reused as a slice): no rewind for this chunk
++                return None
+         elif isinstance(c, (RotatingKVCache, BatchRotatingKVCache, ArraysCache)):
+             out.append(({k: _held(v) for k, v in vars(c).items()}, None))
+         else:
+-- 
+2.52.0
+

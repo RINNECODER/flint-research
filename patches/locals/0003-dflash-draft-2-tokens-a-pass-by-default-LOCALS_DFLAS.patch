@@ -1,0 +1,39 @@
+From cef9628e907cff9d8fa51c5e260bd1c73ba0cf43 Mon Sep 17 00:00:00 2001
+From: RINNECODER <93304526+RINNECODER@users.noreply.github.com>
+Date: Thu, 29 Oct 2026 01:17:04 -0500
+Subject: [PATCH 3/3] dflash: draft 2 tokens a pass by default
+ (LOCALS_DFLASH_WIDTH)
+
+A verify pass costs ~60 ms + ~20 ms a token (streamed experts read), not the 7 ms drafter; 2 tokens beat 7.
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+---
+ locals/hybrid_batch.py | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/locals/hybrid_batch.py b/locals/hybrid_batch.py
+index 8ba3616..af2bafe 100644
+--- a/locals/hybrid_batch.py
++++ b/locals/hybrid_batch.py
+@@ -315,6 +315,9 @@ _SOLO = os.environ.get("LOCALS_SOLO", "1") != "0"
+ _DRAFTS = os.environ.get("LOCALS_DRAFTS", "1") != "0"  # LOCALS_DRAFTS=0: the forced spans in one pass, no drafts
+ # where unconstrained drafts come from: prompt lookup, or Flint's DFlash 2 drafter (locals/dflash.py; 0.8 GB more)
+ _DRAFTER = os.environ.get("LOCALS_DRAFTER", "lookup") if _DRAFTS else "off"
++# the DFlash draft width: a verify pass costs ~60 ms + ~20 ms a token (the streamed experts it reads, not the 7 ms drafter),
++# so 2 tokens beat 7 on tok/s (36 vs 22-24 on code; 1 is 29-32)
++_DFL_WIDTH = int(os.environ.get("LOCALS_DFLASH_WIDTH", "2"))
+ 
+ 
+ def _fsync(path) -> None:
+@@ -1099,7 +1102,7 @@ class HybridBatchEngine(BatchEngine):
+ 
+             if getattr(r, "dfl", None) is None:
+                 r.dfl = dflash.State(len(self._dflash.layers))
+-            st, cap = r.dfl, self._dflash.block - 1
++            st, cap = r.dfl, min(_DFL_WIDTH, self._dflash.block - 1)
+             ctx = dflash.context(self.lm.model._tape, stream[:-1], st, self._dflash.window)  # (x: not fed yet)
+             draft = self._dflash.propose(self.lm, st, stream[-1], ctx)[0].tolist()
+             width = cap if not acc else max(1, min(cap, int(round(2 * sum(acc[-8:]) / len(acc[-8:]) + 1))))
+-- 
+2.52.0
+

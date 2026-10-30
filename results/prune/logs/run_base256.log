@@ -1,0 +1,5 @@
+==> ~/models/flint-prune-tools/results/base256/speed_on.log <==
+{"label": "base256-dflash", "gpu_peak_mb": 9973.287132, "decode_tps_mean": 30.081750736667516, "runs": [30.26587108522763, 33.333869831677504, 28.387712674234834, 28.3395493555301], "acceptance": 0.64352856109906, "drafted": 1780, "draft_tokens": 2766}
+
+==> ~/models/flint-prune-tools/results/base256/speed_off.log <==
+{"label": "base256-nodraft", "gpu_peak_mb": 9076.010692, "decode_tps_mean": 25.354432192575622, "runs": [26.924397074632164, 26.037067337348073, 28.22358657108194, 20.232677787240313], "acceptance": null, "drafted": 0, "draft_tokens": 0}

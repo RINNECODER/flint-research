@@ -1,0 +1,902 @@
+Load from ground-truth from ~/Library/Caches/evalplus/fe585eb4df8c88d844eeb463ea4d0302.pkl
+Reading samples...
+0it [00:00, ?it/s]40it [00:00, 1598.47it/s]
+Process Process-4:1:
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-3:1:
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-2:1:
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-6:1:
+Process Process-1:1:
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-9:1:
+Process Process-7:1:
+Process Process-5:1:
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+ValueError: current limit exceeds maximum limit
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-8:1:
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-3:2:
+Process Process-2:2:
+Process Process-4:2:
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+Process Process-9:2:
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+ValueError: current limit exceeds maximum limit
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-1:2:
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-5:2:
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-8:2:
+Process Process-7:2:
+Process Process-6:2:
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+ValueError: current limit exceeds maximum limit
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-2:3:
+Process Process-6:3:
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-5:3:
+Process Process-3:3:
+Process Process-8:3:
+Process Process-7:3:
+Process Process-1:3:
+Process Process-4:3:
+Process Process-9:3:
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+ValueError: current limit exceeds maximum limit
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+ValueError: current limit exceeds maximum limit
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+Traceback (most recent call last):
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+Traceback (most recent call last):
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+ValueError: current limit exceeds maximum limit
+ValueError: current limit exceeds maximum limit
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+ValueError: current limit exceeds maximum limit
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+ValueError: current limit exceeds maximum limit
+Process Process-1:4:
+Process Process-7:4:
+Traceback (most recent call last):
+Traceback (most recent call last):
+Process Process-9:4:
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-6:4:
+Process Process-2:4:
+Process Process-8:4:
+Process Process-5:4:
+Process Process-3:4:
+Traceback (most recent call last):
+Process Process-4:4:
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+ValueError: current limit exceeds maximum limit
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+ValueError: current limit exceeds maximum limit
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+ValueError: current limit exceeds maximum limit
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-7:5:
+Process Process-4:5:
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-2:5:
+Process Process-1:5:
+Process Process-8:5:
+Process Process-5:5:
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+Traceback (most recent call last):
+ValueError: current limit exceeds maximum limit
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+ValueError: current limit exceeds maximum limit
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-9:5:
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-6:5:
+Process Process-3:5:
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-2:6:
+Process Process-8:6:
+Process Process-4:6:
+Process Process-1:6:
+Traceback (most recent call last):
+Traceback (most recent call last):
+Process Process-5:6:
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+ValueError: current limit exceeds maximum limit
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+ValueError: current limit exceeds maximum limit
+Process Process-9:6:
+Process Process-7:6:
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+ValueError: current limit exceeds maximum limit
+Process Process-6:6:
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-3:6:
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-2:7:
+Process Process-8:7:
+Process Process-5:7:
+Process Process-7:7:
+Traceback (most recent call last):
+Traceback (most recent call last):
+Process Process-9:7:
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+ValueError: current limit exceeds maximum limit
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+ValueError: current limit exceeds maximum limit
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+ValueError: current limit exceeds maximum limit
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-1:7:
+Process Process-4:7:
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-6:7:
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-3:7:
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-4:8:
+Process Process-8:8:
+Process Process-7:8:
+Process Process-5:8:
+Process Process-1:8:
+Process Process-6:8:
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+ValueError: current limit exceeds maximum limit
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+ValueError: current limit exceeds maximum limit
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+Process Process-9:8:
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-2:8:
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-3:8:
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Process Process-4:9:
+Process Process-1:9:
+Process Process-9:9:
+Process Process-7:9:
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+ValueError: current limit exceeds maximum limit
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+ValueError: current limit exceeds maximum limit
+Process Process-7:10:
+Process Process-9:10:
+Process Process-1:10:
+Process Process-4:10:
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+ValueError: current limit exceeds maximum limit
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/__init__.py", line 143, in unsafe_execute
+    reliability_guard(maximum_memory_bytes=query_maximum_memory_bytes())
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+ValueError: current limit exceeds maximum limit
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/eval/utils.py", line 118, in reliability_guard
+    resource.setrlimit(
+ValueError: current limit exceeds maximum limit
+Traceback (most recent call last):
+  File "~/models/flint-prune-tools/.evalvenv/bin/evalplus.evaluate", line 10, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/evaluate.py", line 359, in main
+    Fire(evaluate)
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/fire/core.py", line 135, in Fire
+    component_trace = _Fire(component, args, parsed_flag_args, context, name)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/fire/core.py", line 468, in _Fire
+    component, remaining_args = _CallAndUpdateTrace(
+                                ^^^^^^^^^^^^^^^^^^^^
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/fire/core.py", line 684, in _CallAndUpdateTrace
+    component = fn(*varargs, **kwargs)
+                ^^^^^^^^^^^^^^^^^^^^^^
+  File "~/models/flint-prune-tools/.evalvenv/lib/python3.12/site-packages/evalplus/evaluate.py", line 230, in evaluate
+    assert len(completion_id) == len(problems), "Missing problems in samples"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Missing problems in samples

@@ -1,0 +1,5 @@
+base256-nodraft prompt0 run0: 1024 tokens, decode 26.9 tok/s, ttft 1.9s
+base256-nodraft prompt0 run1: 1024 tokens, decode 26.0 tok/s, ttft 1.9s
+base256-nodraft prompt1 run0: 1024 tokens, decode 28.2 tok/s, ttft 2.1s
+base256-nodraft prompt1 run1: 1024 tokens, decode 20.2 tok/s, ttft 1.3s
+{"label": "base256-nodraft", "gpu_peak_mb": 9076.010692, "decode_tps_mean": 25.354432192575622, "runs": [26.924397074632164, 26.037067337348073, 28.22358657108194, 20.232677787240313], "acceptance": null, "drafted": 0, "draft_tokens": 0}

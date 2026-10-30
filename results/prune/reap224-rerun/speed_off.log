@@ -1,0 +1,5 @@
+reap224-rerun-nodraft prompt0 run0: 1024 tokens, decode 29.5 tok/s, ttft 1.7s
+reap224-rerun-nodraft prompt0 run1: 1024 tokens, decode 29.4 tok/s, ttft 1.3s
+reap224-rerun-nodraft prompt1 run0: 1024 tokens, decode 31.5 tok/s, ttft 1.2s
+reap224-rerun-nodraft prompt1 run1: 1024 tokens, decode 31.2 tok/s, ttft 1.2s
+{"label": "reap224-rerun-nodraft", "gpu_peak_mb": 8966.370964, "decode_tps_mean": 30.41780565027487, "runs": [29.491979461773898, 29.42554270727656, 31.504301787207087, 31.24939864484194], "acceptance": null, "drafted": 0, "draft_tokens": 0}

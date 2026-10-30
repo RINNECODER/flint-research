@@ -1,0 +1,21 @@
+Fetching 12 files:   0%|          | 0/12 [00:00<?, ?it/s]Fetching 12 files: 100%|██████████| 12/12 [00:00<00:00, 4717.12it/s]
+[transformers] The tokenizer you are loading from '~/.cache/huggingface/hub/models--dima6312--Flint-40B-A2.5B-abliterated-Rec-4bit/snapshots/c0d2388f441399e43a0bdeccccf14f66043fedad' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+1/86 windows, 619 tokens, 2s, active 2.1 GB peak 2.1 GB
+6/86 windows, 8314 tokens, 9s, active 2.1 GB peak 2.8 GB
+11/86 windows, 14558 tokens, 17s, active 2.1 GB peak 2.8 GB
+16/86 windows, 23647 tokens, 25s, active 2.1 GB peak 3.0 GB
+21/86 windows, 28543 tokens, 33s, active 2.1 GB peak 3.0 GB
+26/86 windows, 33916 tokens, 41s, active 2.2 GB peak 3.0 GB
+31/86 windows, 43597 tokens, 49s, active 2.1 GB peak 3.0 GB
+36/86 windows, 52025 tokens, 58s, active 2.1 GB peak 3.0 GB
+41/86 windows, 58570 tokens, 66s, active 2.1 GB peak 3.0 GB
+46/86 windows, 65122 tokens, 74s, active 2.2 GB peak 3.0 GB
+51/86 windows, 85602 tokens, 83s, active 2.2 GB peak 3.0 GB
+56/86 windows, 104292 tokens, 93s, active 2.2 GB peak 3.0 GB
+61/86 windows, 124772 tokens, 102s, active 2.2 GB peak 3.0 GB
+66/86 windows, 143742 tokens, 111s, active 2.2 GB peak 3.0 GB
+71/86 windows, 164074 tokens, 120s, active 2.2 GB peak 3.0 GB
+76/86 windows, 183932 tokens, 128s, active 2.2 GB peak 3.0 GB
+81/86 windows, 200788 tokens, 137s, active 2.2 GB peak 3.0 GB
+86/86 windows, 217606 tokens, 145s, active 2.2 GB peak 3.0 GB
+saved results/stats_256.npz 217606 tokens 145s

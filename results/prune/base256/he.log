@@ -1,0 +1,62 @@
+HumanEval/0 stop 818 23s
+HumanEval/4 stop 530 17s
+HumanEval/8 stop 341 14s
+Traceback (most recent call last):
+  File "~/models/flint-prune-tools/humaneval.py", line 30, in <module>
+    resp = json.load(urllib.request.urlopen(r, timeout=3600))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "~/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 500: Internal Server Error
+HumanEval/12 stop 667 22s
+HumanEval/16 stop 527 15s
+HumanEval/20 stop 705 20s
+HumanEval/24 stop 3477 93s
+HumanEval/28 stop 276 10s
+HumanEval/32 stop 3506 123s
+HumanEval/36 stop 3412 120s
+HumanEval/40 stop 1438 52s
+HumanEval/44 stop 688 29s
+HumanEval/48 stop 476 17s
+HumanEval/52 stop 367 11s
+HumanEval/56 stop 348 13s
+HumanEval/60 stop 226 9s
+HumanEval/64 stop 854 34s
+HumanEval/68 stop 915 31s
+HumanEval/72 stop 725 20s
+HumanEval/76 stop 13724 380s
+HumanEval/80 stop 717 25s
+HumanEval/84 stop 950 39s
+HumanEval/88 stop 685 25s
+HumanEval/92 stop 2206 87s
+HumanEval/96 stop 978 34s
+HumanEval/100 stop 1194 39s
+HumanEval/104 stop 743 29s
+HumanEval/108 stop 1872 75s
+HumanEval/112 stop 381 16s
+HumanEval/116 length 16384 509s
+HumanEval/120 stop 1426 38s
+HumanEval/124 stop 3362 88s
+HumanEval/128 stop 767 20s
+HumanEval/132 stop 15117 440s
+HumanEval/136 stop 660 17s
+HumanEval/140 stop 4211 118s
+HumanEval/144 stop 553 16s
+HumanEval/148 stop 2412 68s
+HumanEval/152 stop 709 20s
+HumanEval/156 stop 832 22s

@@ -1,0 +1,472 @@
+From eebf9e53559bce91cadae3f96c68a448258647d2 Mon Sep 17 00:00:00 2001
+From: RINNECODER <93304526+RINNECODER@users.noreply.github.com>
+Date: Wed, 28 Oct 2026 22:22:26 -0500
+Subject: [PATCH 2/3] DFlash 2 drafts for streamed Flint
+ (LOCALS_DRAFTER=dflash)
+
+incoai/Flint-DFlash2, ported from z-lab/dflash's MLX model: a 5-layer block
+drafter (0.4B, bf16) that proposes 7 tokens in one pass from Flint's hidden
+states at layers 5, 15, 26, 36, 46. FlintModel keeps a tape of those states
+for one-row passes while it is on (the optimistic decode windows included);
+a request's context is matched against the tape by token, so passes of other
+rows or a restored prefix leave a gap. The draft replaces prompt lookup in
+the solo path for unconstrained rows; lookup stays the default and for
+grammars. LOCALS_DRAFTER=off turns drafts off.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ locals/dflash.py                | 215 ++++++++++++++++++++++++++++++++
+ locals/hybrid_batch.py          |  38 +++++-
+ locals/models/flint_streamed.py |  24 +++-
+ tests/test_dflash.py            |  24 ++++
+ tests/test_flint_streamed.py    |  30 +++++
+ 5 files changed, 325 insertions(+), 6 deletions(-)
+ create mode 100644 locals/dflash.py
+ create mode 100644 tests/test_dflash.py
+
+diff --git a/locals/dflash.py b/locals/dflash.py
+new file mode 100644
+index 0000000..c66c942
+--- /dev/null
++++ b/locals/dflash.py
+@@ -0,0 +1,215 @@
++"""DFlash 2 drafts for Flint (incoai/Flint-DFlash2; the model from z-lab/dflash, MIT, ported from its model_mlx.py).
++
++A 5-layer block-diffusion drafter (0.4B, bf16) that proposes a block of 7 tokens in one pass: the token about to
++be fed, then 7 mask tokens, attending to Flint's own hidden states (layers 5, 15, 26, 36, 46, concatenated and
++projected) at the last 2047 tokens it has fed. It keeps the top 16 candidates at each position and a low-rank
++selector walks one path through them. Flint's embedding and head are shared (only the body is loaded).
++
++The target's hidden states come from a tape FlintModel keeps while drafts are on (flint_streamed.FlintModel._tape:
++inputs and tapped layers of each one-row pass); a request's context is matched against it by token, so passes of
++other rows or prefixes restored from the cache only leave a gap (its positions are skipped).
++"""
++
++from __future__ import annotations
++
++import json
++from pathlib import Path
++from typing import List, Optional
++
++import mlx.core as mx
++import mlx.nn as nn
++from mlx_lm.models.qwen3 import MLP
++from mlx_lm.models.rope_utils import initialize_rope
++
++from .kernels import head_logits
++
++REPO = "incoai/Flint-DFlash2"
++
++
++class Attention(nn.Module):
++    def __init__(self, cfg: dict):
++        super().__init__()
++        d, hd = cfg["hidden_size"], cfg["head_dim"]
++        self.n_heads, self.n_kv = cfg["num_attention_heads"], cfg["num_key_value_heads"]
++        self.scale = hd ** -0.5
++        self.window = cfg["sliding_window"]
++        self.q_proj = nn.Linear(d, self.n_heads * hd, bias=False)
++        self.k_proj = nn.Linear(d, self.n_kv * hd, bias=False)
++        self.v_proj = nn.Linear(d, self.n_kv * hd, bias=False)
++        self.o_proj = nn.Linear(self.n_heads * hd, d, bias=False)
++        self.q_norm = nn.RMSNorm(hd, eps=cfg["rms_norm_eps"])
++        self.k_norm = nn.RMSNorm(hd, eps=cfg["rms_norm_eps"])
++
++    def __call__(self, x, x_ctx, rope, kv: list, pos: int):
++        """kv: [keys, values] of this layer's context (after RoPE, oldest first), extended by x_ctx at ``pos``
++        and kept to window - 1; the block x follows the context at pos + len(x_ctx)."""
++        B, L, _ = x.shape
++        S = x_ctx.shape[1]
++
++        def heads(t, n, norm=None):
++            t = t.reshape(B, t.shape[1], n, -1)
++            return (norm(t) if norm is not None else t).transpose(0, 2, 1, 3)
++
++        q = rope(heads(self.q_proj(x), self.n_heads, self.q_norm), offset=pos + S)
++        if S:
++            ck = rope(heads(self.k_proj(x_ctx), self.n_kv, self.k_norm), offset=pos)
++            cv = heads(self.v_proj(x_ctx), self.n_kv)
++            ck = ck if kv[0] is None else mx.concatenate([kv[0], ck], axis=2)
++            cv = cv if kv[1] is None else mx.concatenate([kv[1], cv], axis=2)
++            kv[0], kv[1] = ck[:, :, -(self.window - 1):], cv[:, :, -(self.window - 1):]
++        n = 0 if kv[0] is None else kv[0].shape[2]
++        pk = rope(heads(self.k_proj(x), self.n_kv, self.k_norm), offset=pos + S)
++        pv = heads(self.v_proj(x), self.n_kv)
++        keys = pk if not n else mx.concatenate([kv[0], pk], axis=2)
++        values = pv if not n else mx.concatenate([kv[1], pv], axis=2)
++        # the block sees itself whole (not causal) and the context within the window of each query
++        query, key = n + mx.arange(L)[:, None], mx.arange(n + L)[None]
++        mask = (key >= n) | (query - key < self.window)
++        out = mx.fast.scaled_dot_product_attention(q, keys, values, scale=self.scale, mask=mask)
++        return self.o_proj(out.transpose(0, 2, 1, 3).reshape(B, L, -1))
++
++
++def _dyn_conv(hidden, dynamic, base, group):
++    """Two-tap causal convolution along the block, its kernel per group of channels: a learned base plus a
++    per-token part (dynamic)."""
++    B, L, D = hidden.shape
++    blocks = hidden.reshape(B, L, D // group, group)
++    dynamic = dynamic.reshape(B, L, base.shape[0], D // group, 1)
++    out = mx.zeros_like(blocks)
++    for o in range(base.shape[0]):
++        v = blocks if o == 0 else mx.concatenate((mx.zeros_like(blocks[:, :o]), blocks[:, :-o]), axis=1)
++        out = out + (base[o].reshape(1, 1, D // group, group).astype(hidden.dtype) + dynamic[:, :, o]) * v
++    return out.reshape(hidden.shape)
++
++
++class Conv(nn.Module):
++    def __init__(self, d: int, k: int, group: int):
++        super().__init__()
++        self.k, self.group = k, group
++        self.base_kernel = mx.zeros((2, k, d))
++        self.kernel_projection = nn.Linear(d, 2 * k * (d // group), bias=False)
++
++    def prepare(self, h):
++        dyn = self.kernel_projection(h).reshape(*h.shape[:-1], 2, self.k, h.shape[-1] // self.group)
++        return _dyn_conv(h, dyn[..., 0, :, :], self.base_kernel[0], self.group), dyn[..., 1, :, :]
++
++    def finish(self, h, dyn):
++        return _dyn_conv(h, dyn, self.base_kernel[1], self.group)
++
++
++class Layer(nn.Module):
++    def __init__(self, cfg: dict, dc: dict):
++        super().__init__()
++        d = cfg["hidden_size"]
++        self.self_attn = Attention(cfg)
++        self.mlp = MLP(d, cfg["intermediate_size"])
++        self.input_layernorm = nn.RMSNorm(d, eps=cfg["rms_norm_eps"])
++        self.post_attention_layernorm = nn.RMSNorm(d, eps=cfg["rms_norm_eps"])
++        self.attention_conv = Conv(d, dc["conv_kernel_size"], dc["conv_group_size"])
++        self.mlp_conv = Conv(d, dc["conv_kernel_size"], dc["conv_group_size"])
++
++    def __call__(self, x, x_ctx, rope, kv, pos):
++        x2, k = self.attention_conv.prepare(self.input_layernorm(x))
++        x = x + self.attention_conv.finish(self.self_attn(x2, x_ctx, rope, kv, pos), k)
++        x2, k = self.mlp_conv.prepare(self.post_attention_layernorm(x))
++        return x + self.mlp_conv.finish(self.mlp(x2), k)
++
++
++class Selector(nn.Module):
++    def __init__(self, cfg: dict, dc: dict):
++        super().__init__()
++        self.top_k = dc["selector_top_k"]
++        self.predecessor_codebook = nn.Embedding(cfg["vocab_size"], dc["selector_rank"])
++        self.successor_codebook = nn.Embedding(cfg["vocab_size"], dc["selector_rank"])
++        self.hidden_projection = nn.Linear(cfg["hidden_size"], dc["selector_rank"], bias=False)
++
++    def __call__(self, hidden, logits, anchor):
++        """Greedy path through the top-k candidates at each position: unary logit + a low-rank edge score from
++        the previous pick (``anchor``: the token before the block)."""
++        cand = mx.argpartition(logits, -self.top_k, axis=-1)[..., -self.top_k:]
++        unary = mx.take_along_axis(logits, cand, axis=-1)
++        hidden = self.hidden_projection(hidden)
++        prev, path = anchor, []
++        for p in range(hidden.shape[1]):
++            edges = mx.sum(self.predecessor_codebook(prev)[:, None] * hidden[:, p, None]
++                           * self.successor_codebook(cand[:, p]), axis=-1)
++            pick = mx.argmax(unary[:, p] + edges, axis=-1)
++            prev = mx.take_along_axis(cand[:, p], pick[:, None], axis=-1)[:, 0]
++            path.append(prev)
++        return mx.stack(path, axis=1)
++
++
++class Drafter(nn.Module):
++    def __init__(self, cfg: dict):
++        super().__init__()
++        dc = cfg["dflash_config"]
++        d = cfg["hidden_size"]
++        self.block = dc["block_size"]
++        self.mask_id = dc["mask_token_id"]
++        self.target_layers = list(dc["target_layer_ids"])
++        self.window = cfg["sliding_window"]
++        self.fc = nn.Linear(len(self.target_layers) * d, d, bias=False)
++        self.hidden_norm = nn.RMSNorm(d, eps=cfg["rms_norm_eps"])
++        self.layers = [Layer(cfg, dc) for _ in range(cfg["num_hidden_layers"])]
++        self.norm = nn.RMSNorm(d, eps=cfg["rms_norm_eps"])
++        self.candidate_selector = Selector(cfg, dc)
++        rp = cfg.get("rope_parameters") or {}
++        self.rope = initialize_rope(cfg["head_dim"], rp.get("rope_theta", 10000.0), False, None,
++                                    cfg["max_position_embeddings"])
++
++    def propose(self, lm, st: "State", x: int, ctx: Optional[mx.array]) -> mx.array:
++        """The drafted block after token ``x`` (1, block - 1), ``ctx``: Flint's tapped hidden states (1, S, 5 * D)
++        at the tokens fed since the last call (st.pos: the position of the first)."""
++        ids = mx.array([[x] + [self.mask_id] * (self.block - 1)], dtype=mx.int32)
++        h = lm.model.embed_tokens(ids)
++        hc = self.hidden_norm(self.fc(ctx)) if ctx is not None else h[:, :0]
++        for layer, kv in zip(self.layers, st.kv):
++            h = layer(h, hc, self.rope, kv, st.pos)
++        st.pos += hc.shape[1]
++        h = self.norm(h[:, 1:])
++        return self.candidate_selector(h, head_logits(lm, h), ids[:, 0])
++
++
++class State:
++    """A request's drafter context: each layer's context keys and values, the position of the next context
++    token, and how many of the request's stream tokens it has seen (fed to it or skipped)."""
++
++    def __init__(self, n_layers: int):
++        self.kv = [[None, None] for _ in range(n_layers)]
++        self.pos = 0
++        self.seen = 0
++
++
++def load(repo: str = REPO) -> Drafter:
++    from huggingface_hub import snapshot_download
++
++    path = Path(snapshot_download(repo, allow_patterns=["*.json", "*.safetensors"]))
++    cfg = json.loads((path / "config.json").read_text())
++    w = {k: v for f in path.glob("*.safetensors") for k, v in mx.load(str(f)).items()}
++    for k in ("candidate_selector.predecessor_codebook", "candidate_selector.successor_codebook"):
++        w[k + ".weight"] = w.pop(k)  # (stored as bare parameters)
++    m = Drafter(cfg)
++    m.load_weights(list(w.items()))
++    m.eval()
++    mx.eval(m.parameters())
++    return m
++
++
++def context(tape: list, stream: List[int], st: State, window: int):
++    """Flint's hidden states at the stream tokens the drafter has not seen, from the tape's matching tail (the
++    tokens before it are skipped: their positions stay, their states are missing). Returns (hidden or None)."""
++    need = min(len(stream) - st.seen, window - 1)
++    got, k = [], 0
++    for toks, hid in reversed(tape):
++        t = toks[0].tolist() if isinstance(toks, mx.array) else toks
++        m = 0
++        while m < len(t) and k + m < need and t[len(t) - 1 - m] == stream[len(stream) - 1 - k - m]:
++            m += 1
++        if m:
++            got.append(hid[:, len(t) - m:])
++            k += m
++        if m < len(t) or k >= need:
++            break
++    st.pos += len(stream) - st.seen - k  # the skipped tokens' positions
++    st.seen = len(stream)
++    return mx.concatenate(got[::-1], axis=1) if got else None
+diff --git a/locals/hybrid_batch.py b/locals/hybrid_batch.py
+index 7df4db5..8ba3616 100644
+--- a/locals/hybrid_batch.py
++++ b/locals/hybrid_batch.py
+@@ -313,6 +313,8 @@ _GROWTH_TRIM = os.environ.get("LOCALS_GROWTH_TRIM", "1") != "0"
+ # pass as the next token (HybridBatchEngine._solo). LOCALS_SOLO=0: one token per step, as with many requests.
+ _SOLO = os.environ.get("LOCALS_SOLO", "1") != "0"
+ _DRAFTS = os.environ.get("LOCALS_DRAFTS", "1") != "0"  # LOCALS_DRAFTS=0: the forced spans in one pass, no drafts
++# where unconstrained drafts come from: prompt lookup, or Flint's DFlash 2 drafter (locals/dflash.py; 0.8 GB more)
++_DRAFTER = os.environ.get("LOCALS_DRAFTER", "lookup") if _DRAFTS else "off"
+ 
+ 
+ def _fsync(path) -> None:
+@@ -549,6 +551,14 @@ class HybridBatchEngine(BatchEngine):
+         self._next_trim = 0  # the step of the next growth trim (_growth_trim)
+         self._reads: Dict[int, int] = {}  # tokens per prefill pass (power of 2) -> most bytes one needed
+         self.disk = None  # a DiskPromptCache: system-prompt snapshots kept across restarts
++        self._dflash = None
++        if _DRAFTER == "dflash" and hasattr(getattr(self.lm, "model", None), "_tape"):
++            from . import dflash
++
++            self._dflash = dflash.load()  # the tape is on from the start, so a prompt's states are on it
++            body = self.lm.model
++            body._taps = {l: i for i, l in enumerate(self._dflash.target_layers)}
++            body._tapped, body._tape = [None] * len(body._taps), []
+ 
+     # -- prefill with prefix snapshots -------------------------------------------------
+     def _prefill(self, tokens: List[int], others: List[List[int]], tail_ok: int = 0):
+@@ -1069,16 +1079,33 @@ class HybridBatchEngine(BatchEngine):
+         return all(len(c.cache) >= 2 and c.cache[1] is not None and c.cache[1].dtype == mx.float32 and c.left_padding is None
+                    and c.lengths is None for c in rec)
+ 
+-    def _solo_draft(self, r, cache) -> List[int]:
++    def _solo_draft(self, r, cache, dry: bool = False) -> List[int]:
+         """A prompt-lookup draft for an unconstrained row: what followed the most recent earlier occurrence of its
+         last 3 tokens (locals/lookup.py's rule, from an index kept on the request instead of a scan of the whole
+-        prompt every step); its width follows the recent acceptance."""
++        prompt every step); its width follows the recent acceptance. With LOCALS_DRAFTER=dflash, an unconstrained
++        row's draft is the DFlash drafter's block instead (``dry``: only whether there will be one, as the drafter
++        needs the states of the pass in flight)."""
+         constrained = isinstance(r.controller, LocalsController)
+-        if not _DRAFTS or (hasattr(r.controller, "step_config") and not constrained) or not self._solo_drafts_ok(cache):
++        if _DRAFTER == "off" or (hasattr(r.controller, "step_config") and not constrained) or not self._solo_drafts_ok(cache):
+             return []
+         if len(r.out) < getattr(r, "solo_resume", 0):  # recent drafts were rejected: plain pipelined steps for a while
+             return []
+         stream = list(r.prompt) + r.out
++        acc = getattr(r, "solo_acc", None) or []
++        if self._dflash is not None and not constrained and r.out:
++            if dry:
++                return [0]
++            from . import dflash
++
++            if getattr(r, "dfl", None) is None:
++                r.dfl = dflash.State(len(self._dflash.layers))
++            st, cap = r.dfl, self._dflash.block - 1
++            ctx = dflash.context(self.lm.model._tape, stream[:-1], st, self._dflash.window)  # (x: not fed yet)
++            draft = self._dflash.propose(self.lm, st, stream[-1], ctx)[0].tolist()
++            width = cap if not acc else max(1, min(cap, int(round(2 * sum(acc[-8:]) / len(acc[-8:]) + 1))))
++            eos = set(r.controller.eos_ids) or set(self.tokenizer.eos_token_ids)
++            draft = draft[: next((i for i, t in enumerate(draft[:width]) if t in eos), width)]
++            return draft[: max(0, r.max_tokens - len(r.out) - 1)]
+         idx = getattr(r, "lk_index", None)
+         if idx is None:
+             idx, r.lk_index, r.lk_done = {}, {}, 2
+@@ -1243,6 +1270,9 @@ class HybridBatchEngine(BatchEngine):
+             if draft:
+                 if kept < len(draft):
+                     self._solo_rewind(cache, len(draft) - kept)
++                    if self._dflash is not None:  # the tape keeps the states of the tokens left in the cache only
++                        tape, n = self.lm.model._tape, 1 + len(span) + kept
++                        tape[-1] = (tape[-1][0][:, :n], tape[-1][1][:, :n])
+                 for c in cache:  # the per-token states (48 MB a token on Qwen3.5-4B) are not kept past the pass
+                     if isinstance(c, ArraysCache):
+                         c.token_states = c.token_conv = None
+@@ -1868,7 +1898,7 @@ class HybridBatchEngine(BatchEngine):
+             if _SOLO and len(rows) == 1 and not queue and not filling and not dead and self._solo_ok(rows[0], cache):
+                 # entering costs about a step (the pipeline drains): a forced span of 3 or more tokens, or a draft (the
+                 # padding read, which waits for the GPU, only with a span: the pipeline drains for it anyway)
+-                solo_next = (len(rows[0].pend) >= 3 and self._solo_unpadded(cache)) or bool(self._solo_draft(rows[0], cache))
++                solo_next = (len(rows[0].pend) >= 3 and self._solo_unpadded(cache)) or bool(self._solo_draft(rows[0], cache, dry=True))
+         mx.synchronize()
+         self.active = 0
+         return BatchStats(time.perf_counter() - t0, prefill_s, steps, nrows, self.tokens_out)
+diff --git a/locals/models/flint_streamed.py b/locals/models/flint_streamed.py
+index 9d62745..d108cc8 100644
+--- a/locals/models/flint_streamed.py
++++ b/locals/models/flint_streamed.py
+@@ -1194,8 +1194,23 @@ class FlintModel(nn.Module):
+         # 90% of the MoE blocks found every expert in a slot, until fewer than 80% do.
+         self._ready = 0.0  # running share of decode passes' MoE blocks that found every expert in a slot
+         self._windows = False
++        # DFlash drafts (locals/dflash.py): the layers it reads, and a tape of (inputs, their outputs) per one-row pass
++        self._taps, self._tapped, self._tape = {}, [], None
++
++    def _tap(self, i: int, h: mx.array) -> None:
++        if i in self._taps:
++            self._tapped[self._taps[i]] = h
+ 
+     def __call__(self, inputs: mx.array, cache=None, input_embeddings: Optional[mx.array] = None) -> mx.array:
++        h = self._body(inputs, cache, input_embeddings)
++        if self._tape is not None and inputs is not None and h.shape[0] == 1:
++            self._tape.append((inputs, mx.concatenate(self._tapped, axis=-1)))
++            n = sum(t[0].shape[1] for t in self._tape)
++            while n - self._tape[0][0].shape[1] >= 2048:  # (the drafter's window: 2047 tokens)
++                n -= self._tape.pop(0)[0].shape[1]
++        return h
++
++    def _body(self, inputs: mx.array, cache=None, input_embeddings: Optional[mx.array] = None) -> mx.array:
+         h = input_embeddings if input_embeddings is not None else self.embed_tokens(inputs)
+         if cache is None:
+             cache = [None] * len(self.layers)
+@@ -1211,13 +1226,15 @@ class FlintModel(nn.Module):
+                 h = self._optimistic(h, cache, masks)
+             else:
+                 self._windows = False
+-                for layer, c, m in zip(self.layers, cache, masks):
++                for i, (layer, c, m) in enumerate(zip(self.layers, cache, masks)):
+                     h = layer(h, m, c)
++                    self._tap(i, h)
+             if store.passes > p0:
+                 self._ready = 0.9 * self._ready + 0.1 * (store.ready - r0) / (store.passes - p0)
+             return self.norm(h)
+-        for layer, c, m in zip(self.layers, cache, masks):
++        for i, (layer, c, m) in enumerate(zip(self.layers, cache, masks)):
+             h = layer(h, m, c)
++            self._tap(i, h)
+         return self.norm(h)
+ 
+     def _store(self):
+@@ -1244,6 +1261,7 @@ class FlintModel(nn.Module):
+         while i < n:
+             if not isinstance(self.layers[i].mlp, SparseMoe):
+                 h = self.layers[i](h, masks[i], cache[i])
++                self._tap(i, h)
+                 i += 1
+                 continue
+             win, okin, j = [], None, i
+@@ -1254,6 +1272,7 @@ class FlintModel(nn.Module):
+                 xn = lay.post_attention_layernorm(ha)
+                 ahead = lay.mlp._ahead(rows)
+                 h, okin, rec = lay.mlp._optimistic(xn, ha, rows, ahead, okin)
++                self._tap(j, h)  # (a layer after a missing expert is computed again below and tapped again)
+                 win.append((j, snap, ha, xn, okin, rec, ahead))
+                 j += 1
+             mx.eval(h, *[a for _, _, _, _, ok, rec, _ in win for a in (ok, rec[0], rec[2])])
+@@ -1284,6 +1303,7 @@ class FlintModel(nn.Module):
+             for jj, snap, *_ in win[bad + 1:]:
+                 _restore(cache[jj], snap)
+             h = self.layers[jb].mlp._compute(xn, ha, rows, rec[0], rec[1])
++            self._tap(jb, h)
+             self._window = max(1, bad + 1)
+             i = jb + 1
+         return h
+diff --git a/tests/test_dflash.py b/tests/test_dflash.py
+new file mode 100644
+index 0000000..e49f8b2
+--- /dev/null
++++ b/tests/test_dflash.py
+@@ -0,0 +1,24 @@
++"""DFlash drafts (locals/dflash.py): a request's drafter context comes from FlintModel's tape of one-row passes."""
++import mlx.core as mx
++
++from locals import dflash
++
++
++def _states(toks, tag):
++    return mx.array([[[tag * 100 + t] for t in toks]], dtype=mx.float32)
++
++
++def test_the_context_is_the_tapes_matching_tail_and_what_it_misses_a_gap():
++    """The tape's tail that matches the request's fed tokens gives their states, oldest first; a pass of another row
++    ends the match, and the tokens before it keep their positions with no states (the drafter's RoPE stays aligned).
++    The next call gives only the tokens fed since."""
++    tape = [(mx.array([[1, 2, 3]]), _states([1, 2, 3], 1)), (mx.array([[9, 9]]), _states([9, 9], 2)),
++            (mx.array([[4, 5]]), _states([4, 5], 1)), (mx.array([[6]]), _states([6], 1))]
++    st = dflash.State(1)
++    ctx = dflash.context(tape, [0, 1, 2, 3, 4, 5, 6], st, window=2048)
++    assert ctx[0, :, 0].tolist() == [104, 105, 106] and st.pos == 4 and st.seen == 7
++    st.pos += ctx.shape[1]  # (what propose does with it)
++    tape.append(([7, 8], _states([7, 8], 1)))
++    ctx = dflash.context(tape, [0, 1, 2, 3, 4, 5, 6, 7, 8], st, window=2048)
++    assert ctx[0, :, 0].tolist() == [107, 108] and st.pos == 7
++    assert dflash.context(tape, [0, 1, 2, 3, 4, 5, 6, 7, 8], st, window=2048) is None and st.pos == 7
+diff --git a/tests/test_flint_streamed.py b/tests/test_flint_streamed.py
+index ce2abae..31b2d14 100644
+--- a/tests/test_flint_streamed.py
++++ b/tests/test_flint_streamed.py
+@@ -533,3 +533,33 @@ def test_a_rejected_draft_rewound_leaves_no_trace_in_recursives_build():
+         return mx.concatenate(out)
+ 
+     assert mx.array_equal(steps([11, 12, 13]), steps([500, 7000, 42])).item()
++
++
++def test_the_tape_holds_each_fed_tokens_layer_states_however_the_step_ran(tmp_path, monkeypatch):
++    """DFlash drafts (locals/dflash.py) read Flint's states at the layers they name from a tape of one-row passes.
++    One-token steps whose windows of layers resume after a missing expert (3 slots a layer: they miss all the time,
++    and the layers after the miss are computed again) tape what one pass over the whole stream computes."""
++    import mlx_lm.utils as mlx_utils
++
++    monkeypatch.setattr(flint, "OPTIMISTIC", "always")
++    _save_wide(tmp_path)
++    model, _ = mlx_utils.load_model(tmp_path)
++    model.expert_store.slots = 3
++    model.expert_store.reset()
++    restores = []
++    restore = flint._restore
++    monkeypatch.setattr(flint, "_restore", lambda *a: restores.append(1) or restore(*a))
++    body = model.model
++    body._taps, body._tapped, body._tape = {0: 0, 2: 1}, [None, None], []
++    tokens = [3, 17, 42, 5, 88, 9, 61, 2, 33, 70, 11, 4]
++    cache = model.make_cache()
++    for t in tokens:
++        mx.eval(model(mx.array([[t]]), cache=cache))
++    assert restores and [x[0].tolist() for x, _ in body._tape] == [[t] for t in tokens]
++    got = mx.concatenate([h for _, h in body._tape], axis=1).astype(mx.float32)
++    body._tape = []
++    monkeypatch.setattr(flint, "OPTIMISTIC", "0")
++    model(mx.array([tokens]), cache=model.make_cache())
++    want = body._tape[0][1].astype(mx.float32)
++    assert got.shape == want.shape == (1, len(tokens), 2 * 512)
++    assert float(mx.max(mx.abs(got - want))) <= 0.05 * (1 + float(mx.max(mx.abs(want))))
+-- 
+2.52.0
+

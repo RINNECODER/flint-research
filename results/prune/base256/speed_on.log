@@ -1,0 +1,5 @@
+base256-dflash prompt0 run0: 1024 tokens, decode 30.3 tok/s, ttft 1.4s
+base256-dflash prompt0 run1: 1024 tokens, decode 33.3 tok/s, ttft 2.1s
+base256-dflash prompt1 run0: 1024 tokens, decode 28.4 tok/s, ttft 1.2s
+base256-dflash prompt1 run1: 1024 tokens, decode 28.3 tok/s, ttft 2.2s
+{"label": "base256-dflash", "gpu_peak_mb": 9973.287132, "decode_tps_mean": 30.081750736667516, "runs": [30.26587108522763, 33.333869831677504, 28.387712674234834, 28.3395493555301], "acceptance": 0.64352856109906, "drafted": 1780, "draft_tokens": 2766}

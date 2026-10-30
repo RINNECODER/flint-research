@@ -1,0 +1,145 @@
+{
+ "parity": [
+  {
+   "prompt": "The capital of France is Paris. The capi",
+   "n": 32,
+   "top1_agree": 0.96875,
+   "first_miss": 30,
+   "mean_logprob_gap": 0.00955200009047985,
+   "max_logprob_gap": 0.3056640028953552,
+   "finite": true,
+   "ref_text": " Tokyo. The capital of Australia is Canberra. The capital of Canada is Ottawa. The capital of Italy is Rome. The [SEP] The capital of Brazil is",
+   "torch_greedy": " Tokyo. The capital of Australia is Canberra. The capital of Canada is Ottawa. The capital of Italy is Rome. The [SEP] The capital of Spain is",
+   "same_chars_before_divergence": 134,
+   "fwd_s": 5.2
+  },
+  {
+   "prompt": "def fibonacci(n):\n    \"\"\"Return the n-th",
+   "n": 32,
+   "top1_agree": 0.96875,
+   "first_miss": 5,
+   "mean_logprob_gap": 0.0,
+   "max_logprob_gap": 0.0,
+   "finite": true,
+   "ref_text": "    if n <=  length:  # <- this is wrong\n        return n\n    elif n == 1:\n        return 1\n    else",
+   "torch_greedy": "    if n <=  length:  # <- this is wrong\n        return n\n    elif n == 1:\n        return 1\n    else",
+   "same_chars_before_divergence": 100,
+   "fwd_s": 3.9
+  },
+  {
+   "prompt": "Photosynthesis is the process by which p",
+   "n": 32,
+   "top1_agree": 0.96875,
+   "first_miss": 28,
+   "mean_logprob_gap": 0.00860595703125,
+   "max_logprob_gap": 0.275390625,
+   "finite": true,
+   "ref_text": " use sunlight, water, and carbon dioxide to create their own food. During photosynthesis, plants release oxygen as a byproduct. During the equivalent of human sleep, plants",
+   "torch_greedy": " use sunlight to make their own food. During photosynthesis, plants take in carbon dioxide and water, and using the light energy from the start of the day to the",
+   "same_chars_before_divergence": 13,
+   "fwd_s": 3.77
+  }
+ ],
+ "lora": [
+  {
+   "seq": 512,
+   "step": 0,
+   "loss": 2.7126383781433105,
+   "grad_norm": 49.12355422973633,
+   "step_s": 29.38,
+   "peak_GB": [
+    12.21,
+    12.55
+   ]
+  },
+  {
+   "seq": 512,
+   "step": 1,
+   "loss": 1.8183304071426392,
+   "grad_norm": 12.266922950744629,
+   "step_s": 27.57,
+   "peak_GB": [
+    12.26,
+    12.6
+   ]
+  },
+  {
+   "seq": 512,
+   "step": 2,
+   "loss": 1.180017352104187,
+   "grad_norm": 9.2613525390625,
+   "step_s": 28.19,
+   "peak_GB": [
+    12.26,
+    12.6
+   ]
+  },
+  {
+   "seq": 1024,
+   "step": 0,
+   "loss": 1.028255581855774,
+   "grad_norm": 14.400139808654785,
+   "step_s": 30.89,
+   "peak_GB": [
+    12.63,
+    12.89
+   ]
+  },
+  {
+   "seq": 1024,
+   "step": 1,
+   "loss": 0.5521432161331177,
+   "grad_norm": 7.864180564880371,
+   "step_s": 30.96,
+   "peak_GB": [
+    12.63,
+    12.89
+   ]
+  },
+  {
+   "seq": 1024,
+   "step": 2,
+   "loss": 0.2999911308288574,
+   "grad_norm": 5.60548734664917,
+   "step_s": 30.8,
+   "peak_GB": [
+    12.63,
+    12.89
+   ]
+  },
+  {
+   "seq": 2048,
+   "step": 0,
+   "loss": 0.4773038625717163,
+   "grad_norm": 8.183362007141113,
+   "step_s": 38.72,
+   "peak_GB": [
+    13.49,
+    13.73
+   ]
+  },
+  {
+   "seq": 2048,
+   "step": 1,
+   "loss": 0.31279027462005615,
+   "grad_norm": 4.324825286865234,
+   "step_s": 38.6,
+   "peak_GB": [
+    13.49,
+    13.73
+   ]
+  },
+  {
+   "seq": 2048,
+   "step": 2,
+   "loss": 0.21006368100643158,
+   "grad_norm": 3.385648727416992,
+   "step_s": 38.76,
+   "peak_GB": [
+    13.49,
+    13.73
+   ]
+  }
+ ],
+ "lora_b_abs_sum_after": 1914.465432882309
+}

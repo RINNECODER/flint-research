@@ -1,0 +1,5 @@
+base256-rerun-dflash prompt0 run0: 1024 tokens, decode 36.1 tok/s, ttft 2.1s
+base256-rerun-dflash prompt0 run1: 1024 tokens, decode 36.0 tok/s, ttft 1.3s
+base256-rerun-dflash prompt1 run0: 1024 tokens, decode 35.3 tok/s, ttft 1.3s
+base256-rerun-dflash prompt1 run1: 1024 tokens, decode 30.5 tok/s, ttft 1.3s
+{"label": "base256-rerun-dflash", "gpu_peak_mb": 9955.799132, "decode_tps_mean": 34.471331094927805, "runs": [36.09269073157286, 35.98714408469086, 35.34055716285855, 30.464932400588946], "acceptance": 0.64352856109906, "drafted": 1780, "draft_tokens": 2766}

@@ -1,0 +1,1 @@
+{"n": 40, "base_pass": 30, "plus_pass": 29, "plus_pass@1": 0.725, "plus_fails": ["HumanEval/100", "HumanEval/116", "HumanEval/124", "HumanEval/132", "HumanEval/136", "HumanEval/140", "HumanEval/148", "HumanEval/156", "HumanEval/16", "HumanEval/32", "HumanEval/76"]}

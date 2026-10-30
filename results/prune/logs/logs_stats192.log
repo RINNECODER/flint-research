@@ -1,0 +1,20 @@
+[transformers] The tokenizer you are loading from '~/models/flint-abl-reap192' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+1/86 windows, 619 tokens, 2s, active 1.8 GB peak 1.9 GB
+6/86 windows, 8314 tokens, 9s, active 1.9 GB peak 2.6 GB
+11/86 windows, 14558 tokens, 16s, active 1.8 GB peak 2.6 GB
+16/86 windows, 23647 tokens, 24s, active 1.8 GB peak 2.7 GB
+21/86 windows, 28543 tokens, 31s, active 1.8 GB peak 2.7 GB
+26/86 windows, 33916 tokens, 38s, active 2.0 GB peak 2.7 GB
+31/86 windows, 43597 tokens, 45s, active 1.9 GB peak 2.7 GB
+36/86 windows, 52025 tokens, 52s, active 1.8 GB peak 2.7 GB
+41/86 windows, 58570 tokens, 60s, active 1.8 GB peak 2.7 GB
+46/86 windows, 65122 tokens, 67s, active 2.0 GB peak 2.7 GB
+51/86 windows, 85602 tokens, 76s, active 2.0 GB peak 2.7 GB
+56/86 windows, 104292 tokens, 86s, active 2.0 GB peak 2.7 GB
+61/86 windows, 124772 tokens, 95s, active 2.0 GB peak 2.7 GB
+66/86 windows, 143742 tokens, 104s, active 2.0 GB peak 2.7 GB
+71/86 windows, 164074 tokens, 113s, active 2.0 GB peak 2.7 GB
+76/86 windows, 183932 tokens, 122s, active 2.0 GB peak 2.7 GB
+81/86 windows, 200788 tokens, 131s, active 2.0 GB peak 2.7 GB
+86/86 windows, 217606 tokens, 140s, active 2.0 GB peak 2.8 GB
+saved results/stats_reap192.npz 217606 tokens 140s

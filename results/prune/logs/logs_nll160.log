@@ -1,0 +1,2 @@
+[transformers] The tokenizer you are loading from '~/models/flint-abl-reap160' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+saved results/nll_reap160.npz: mean NLL 3.2593, top-1 vs text 0.5617, KL 1.4545, 36s

@@ -1,0 +1,18 @@
+saved results/nll_freq224.npz: mean NLL 3.2822, top-1 vs text 0.5627, KL 0.9751, 50s
+NLL 3.2827 -> 3.2822  delta -0.0005 CI [-0.0661, +0.0609]  top1-agree 0.7536  top1-text 0.5654 -> 0.5627
+  code: delta -0.0121, agree 0.8133
+  openhands: delta -0.0257, agree 0.6990
+  swe-agent: delta +0.0341, agree 0.7435
+  KL(ref||variant) 0.9751 CI [0.7874, 1.1820]  median-token 0.0537
+saved results/nll_sumreap224.npz: mean NLL 3.2745, top-1 vs text 0.5651, KL 0.9011, 50s
+NLL 3.2827 -> 3.2745  delta -0.0081 CI [-0.0457, +0.0287]  top1-agree 0.7795  top1-text 0.5654 -> 0.5651
+  code: delta -0.0239, agree 0.8336
+  openhands: delta +0.0036, agree 0.7338
+  swe-agent: delta -0.0029, agree 0.7670
+  KL(ref||variant) 0.9011 CI [0.6968, 1.1230]  median-token 0.0322
+saved results/nll_reap224.npz: mean NLL 3.2762, top-1 vs text 0.5682, KL 0.9167, 51s
+NLL 3.2827 -> 3.2762  delta -0.0065 CI [-0.0863, +0.0757]  top1-agree 0.7801  top1-text 0.5654 -> 0.5682
+  code: delta -0.0510, agree 0.8334
+  openhands: delta +0.0583, agree 0.7196
+  swe-agent: delta -0.0209, agree 0.7818
+  KL(ref||variant) 0.9167 CI [0.7063, 1.1409]  median-token 0.0297

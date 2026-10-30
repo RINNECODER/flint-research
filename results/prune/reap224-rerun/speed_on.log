@@ -1,0 +1,5 @@
+reap224-rerun-dflash prompt0 run0: 1024 tokens, decode 39.7 tok/s, ttft 1.8s
+reap224-rerun-dflash prompt0 run1: 1024 tokens, decode 39.9 tok/s, ttft 1.2s
+reap224-rerun-dflash prompt1 run0: 1024 tokens, decode 33.3 tok/s, ttft 1.2s
+reap224-rerun-dflash prompt1 run1: 1024 tokens, decode 34.5 tok/s, ttft 1.3s
+{"label": "reap224-rerun-dflash", "gpu_peak_mb": 9835.778557, "decode_tps_mean": 36.849687489355134, "runs": [39.70157154554505, 39.871067300031, 33.29990665366171, 34.526204458182775], "acceptance": 0.6817366343738788, "drafted": 1900, "draft_tokens": 2787}

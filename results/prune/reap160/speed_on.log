@@ -1,0 +1,5 @@
+reap160-dflash prompt0 run0: 1024 tokens, decode 39.7 tok/s, ttft 1.1s
+reap160-dflash prompt0 run1: 1024 tokens, decode 39.9 tok/s, ttft 0.9s
+reap160-dflash prompt1 run0: 1024 tokens, decode 35.5 tok/s, ttft 1.1s
+reap160-dflash prompt1 run1: 1024 tokens, decode 38.3 tok/s, ttft 1.1s
+{"label": "reap160-dflash", "gpu_peak_mb": 11657.844988, "decode_tps_mean": 38.32842838329507, "runs": [39.66137791970234, 39.858960667621545, 35.51595742888907, 38.27741751696733], "acceptance": 0.6063364894391843, "drafted": 1665, "draft_tokens": 2746}

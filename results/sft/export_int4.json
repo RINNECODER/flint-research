@@ -1,0 +1,7 @@
+{
+ "tensors": 343,
+ "rel_mse_mean": 0.005283855483391575,
+ "delta_kept_mean": 0.7641926087321893,
+ "requant_err_over_delta_mean": 0.7313038650302776,
+ "val_nll_int4": 1.0932033707290183
+}

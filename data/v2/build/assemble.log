@@ -1,0 +1,22 @@
+2203 {'dup': 20, 'think_tag_in_content': 1}
+train
+  fable5-cc-alin-full              n=   23 tok=    58919 mean=  2562 med=  2284 max=4964 trained=27298
+  fable5-cc-alin-prefix            n=    8 tok=    38856 mean=  4857 med=  4962 max=5895 trained=10292
+  fable5-cc-armand0e-full          n=   59 tok=   160370 mean=  2718 med=  2095 max=6120 trained=78933
+  fable5-cc-armand0e-prefix        n=   72 tok=   287145 mean=  3988 med=  4044 max=6091 trained=106493
+  fable5-cursor-full               n=   16 tok=    68898 mean=  4306 med=  5037 max=6098 trained=42612
+  fable5-cursor-prefix             n=  161 tok=   826758 mean=  5135 med=  5783 max=6140 trained=421847
+  fable5-dsf-full                  n=  438 tok=  1760909 mean=  4020 med=  4135 max=6143 trained=490001
+  fable5-dsf-prefix                n=  243 tok=   885190 mean=  3643 med=  3610 max=6141 trained=132987
+  opus46-47-chat-coding            n= 1033 tok=  1745593 mean=  1690 med=  1265 max=5888 trained=1623562
+  TOTAL 2053 5832638 2934025
+val
+  fable5-cc-alin-full              n=    1 tok=     5676 mean=  5676 med=  5676 max=5676 trained=2296
+  fable5-cc-alin-prefix            n=    1 tok=      951 mean=   951 med=   951 max=951 trained=295
+  fable5-cc-armand0e-full          n=    3 tok=     7927 mean=  2642 med=  2806 max=4299 trained=4470
+  fable5-cc-armand0e-prefix        n=    7 tok=    32517 mean=  4645 med=  5284 max=6060 trained=11163
+  fable5-cursor-prefix             n=   12 tok=    61004 mean=  5084 med=  5916 max=6142 trained=35097
+  fable5-dsf-full                  n=   36 tok=   144631 mean=  4018 med=  4604 max=6125 trained=39858
+  fable5-dsf-prefix                n=   14 tok=    48603 mean=  3472 med=  3191 max=6083 trained=6458
+  opus46-47-chat-coding            n=   76 tok=   146884 mean=  1933 med=  1501 max=5941 trained=137027
+  TOTAL 150 448193 236664

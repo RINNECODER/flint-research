@@ -1,0 +1,5 @@
+==> ~/models/flint-prune-tools/results/reap192/speed_on.log <==
+{"label": "reap192-dflash", "gpu_peak_mb": 11759.550302, "decode_tps_mean": 36.52926562701518, "runs": [36.0121606516728, 37.48514169281425, 36.639933914491706, 35.97982624908194], "acceptance": 0.6136865342163356, "drafted": 1668, "draft_tokens": 2718}
+
+==> ~/models/flint-prune-tools/results/reap192/speed_off.log <==
+{"label": "reap192-nodraft", "gpu_peak_mb": 8852.7878, "decode_tps_mean": 31.611831734029845, "runs": [30.515103147394402, 31.72682308746493, 32.052170636886494, 32.15323006437356], "acceptance": null, "drafted": 0, "draft_tokens": 0}

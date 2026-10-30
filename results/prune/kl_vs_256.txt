@@ -1,0 +1,49 @@
+# python prune/compare.py nll_256.npz nll_<variant>.npz  (reference nll_256.npz is 50 MB, not in the repo; rebuild with prune/run.py nll)
+== 256chunk
+NLL 3.2827 -> 3.2867  delta +0.0040 CI [-0.0392, +0.0507]  top1-agree 0.8580  top1-text 0.5654 -> 0.5653
+  code: delta -0.0382, agree 0.9040
+  openhands: delta +0.0363, agree 0.8051
+  swe-agent: delta +0.0168, agree 0.8601
+  KL(ref||variant) 0.4162 CI [0.3072, 0.5390]  median-token 0.0055
+== 224 (RESMP RCO-224 mask, file nll_resmp_rco224.npz)
+NLL 3.2827 -> 3.0625  delta -0.2202 CI [-0.3899, -0.0692]  top1-agree 0.6826  top1-text 0.5654 -> 0.5683
+  code: delta -0.2392, agree 0.7460
+  openhands: delta -0.2126, agree 0.6047
+  swe-agent: delta -0.2080, agree 0.6902
+  KL(ref||variant) 1.4888 CI [1.2457, 1.7487]  median-token 0.1714
+== rand224
+NLL 3.2827 -> 2.9268  delta -0.3559 CI [-0.5338, -0.1962]  top1-agree 0.6860  top1-text 0.5654 -> 0.5788
+  code: delta -0.0138, agree 0.7603
+  openhands: delta -0.4561, agree 0.5983
+  swe-agent: delta -0.6070, agree 0.6913
+  KL(ref||variant) 1.4654 CI [1.2143, 1.7304]  median-token 0.1678
+== freq224
+NLL 3.2827 -> 3.2822  delta -0.0005 CI [-0.0661, +0.0609]  top1-agree 0.7536  top1-text 0.5654 -> 0.5627
+  code: delta -0.0121, agree 0.8133
+  openhands: delta -0.0257, agree 0.6990
+  swe-agent: delta +0.0341, agree 0.7435
+  KL(ref||variant) 0.9751 CI [0.7874, 1.1820]  median-token 0.0537
+== reap224
+NLL 3.2827 -> 3.2762  delta -0.0065 CI [-0.0863, +0.0757]  top1-agree 0.7801  top1-text 0.5654 -> 0.5682
+  code: delta -0.0510, agree 0.8334
+  openhands: delta +0.0583, agree 0.7196
+  swe-agent: delta -0.0209, agree 0.7818
+  KL(ref||variant) 0.9167 CI [0.7063, 1.1409]  median-token 0.0297
+== sumreap224
+NLL 3.2827 -> 3.2745  delta -0.0081 CI [-0.0457, +0.0287]  top1-agree 0.7795  top1-text 0.5654 -> 0.5651
+  code: delta -0.0239, agree 0.8336
+  openhands: delta +0.0036, agree 0.7338
+  swe-agent: delta -0.0029, agree 0.7670
+  KL(ref||variant) 0.9011 CI [0.6968, 1.1230]  median-token 0.0322
+== reap192
+NLL 3.2827 -> 3.3023  delta +0.0197 CI [-0.0851, +0.1340]  top1-agree 0.7369  top1-text 0.5654 -> 0.5651
+  code: delta -0.0145, agree 0.7936
+  openhands: delta +0.1763, agree 0.6786
+  swe-agent: delta -0.0885, agree 0.7332
+  KL(ref||variant) 1.2094 CI [0.9585, 1.4712]  median-token 0.0677
+== reap160
+NLL 3.2827 -> 3.2593  delta -0.0233 CI [-0.1563, +0.1067]  top1-agree 0.6988  top1-text 0.5654 -> 0.5617
+  code: delta -0.0718, agree 0.7601
+  openhands: delta +0.1872, agree 0.6315
+  swe-agent: delta -0.1662, agree 0.6986
+  KL(ref||variant) 1.4545 CI [1.1819, 1.7407]  median-token 0.1261

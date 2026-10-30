@@ -1,0 +1,204 @@
+From dd5cca9f7cf295cfabace6879652fd08adc9e4bd Mon Sep 17 00:00:00 2001
+From: RINNECODER <93304526+RINNECODER@users.noreply.github.com>
+Date: Wed, 28 Oct 2026 21:05:41 -0500
+Subject: [PATCH 1/3] Prompt-lookup drafts for Flint (streamed too): rewind its
+ sliding-window rings
+
+A rejected draft's keys stayed in a BatchRotatingKVCache past trim(): the next
+one-token step trims the ring from its length, not its _idx, so they stayed in
+the window. _solo_rewind now cuts them off; a multi-token pass leaves the ring
+in order and window-1 + T long, so nothing the kept tokens need is lost.
+The solo path also recognises flint_streamed (RecursiveSI/flint-int4), which
+it missed by module name. LOCALS_DRAFTS=0 turns drafts off.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ locals/hybrid_batch.py       | 34 +++++++++++++++++++++++-----------
+ tests/test_flint.py          | 26 ++++++++++++++++++--------
+ tests/test_flint_streamed.py | 36 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 77 insertions(+), 19 deletions(-)
+
+diff --git a/locals/hybrid_batch.py b/locals/hybrid_batch.py
+index 4c19dc1..7df4db5 100644
+--- a/locals/hybrid_batch.py
++++ b/locals/hybrid_batch.py
+@@ -312,6 +312,7 @@ _GROWTH_TRIM = os.environ.get("LOCALS_GROWTH_TRIM", "1") != "0"
+ # One request running alone: its forced spans fed in one pass, and prompt-lookup drafts verified in the same
+ # pass as the next token (HybridBatchEngine._solo). LOCALS_SOLO=0: one token per step, as with many requests.
+ _SOLO = os.environ.get("LOCALS_SOLO", "1") != "0"
++_DRAFTS = os.environ.get("LOCALS_DRAFTS", "1") != "0"  # LOCALS_DRAFTS=0: the forced spans in one pass, no drafts
+ 
+ 
+ def _fsync(path) -> None:
+@@ -1023,15 +1024,9 @@ class HybridBatchEngine(BatchEngine):
+         if not _SOLO or cache is None or getattr(self, "_walk", None) is not None:
+             return False
+         if any(type(c) not in (BatchKVCache, ArraysCache) for c in cache):
+-            # sliding-window layers (Gemma, Flint) and 8-bit ones (locals/qkv.py) are not rewound, which a draft needs
+-            # and a forced span does not: those get their spans in one pass, and no drafts (_solo_drafts_ok)
+-            from .qkv import BatchQuantizedKVCache
+-
+-            if type(getattr(self.lm, "model", None)).__module__.rsplit(".", 1)[-1] != "flint":
+-                return False  # (Flint's only: Gemma's sliding-window layers keep their spans a token at a time)
+-            if any(type(c) not in (BatchKVCache, ArraysCache, BatchRotatingKVCache, BatchQuantizedKVCache) for c in cache):
+-                return False
+-            if self._solo_drafts_ok(cache):
++            # sliding-window layers (Gemma, Flint) and 8-bit ones (locals/qkv.py): Flint's only (its rings are rewound
++            # in _solo_rewind); Gemma's sliding-window layers keep their spans a token at a time
++            if not self._solo_flint(cache):
+                 return False
+         name = type(r.controller).__name__
+         return name not in ("WalkController", "PDAController")
+@@ -1046,10 +1041,21 @@ class HybridBatchEngine(BatchEngine):
+         rings = [c.left_padding for c in cache if type(c) is BatchRotatingKVCache and c.left_padding is not None]
+         return not rings or int(mx.max(mx.concatenate([mx.reshape(p, (-1,)) for p in rings])).item()) <= 0
+ 
++    def _solo_flint(self, cache) -> bool:
++        """Flint's batch caches (its rings are trimmed in _solo_rewind; without an ArraysCache, every layer is a KV cache)."""
++        from .qkv import BatchQuantizedKVCache
++
++        if type(getattr(self.lm, "model", None)).__module__.rsplit(".", 1)[-1] not in ("flint", "flint_streamed"):
++            return False
++        return all(type(c) in (BatchKVCache, ArraysCache, BatchRotatingKVCache, BatchQuantizedKVCache) for c in cache)
++
+     def _solo_drafts_ok(self, cache) -> bool:
+-        """Drafts need the per-token recurrent states the fused Gated DeltaNet kernel records (to rewind)."""
++        """Drafts need the per-token recurrent states the fused Gated DeltaNet kernel records (to rewind), or no
++        recurrent layer at all (Flint: KV caches only)."""
+         from . import fuse
+ 
++        if self._solo_flint(cache) and not any(isinstance(c, ArraysCache) for c in cache):
++            return True
+         n = getattr(self, "_solo_gdn", None)
+         if n is None:  # the fused GDN layers, or 0 when any layer cannot record its states
+             lin = [getattr(l, "linear_attn", None) for l in self.lm.model.layers]
+@@ -1068,7 +1074,7 @@ class HybridBatchEngine(BatchEngine):
+         last 3 tokens (locals/lookup.py's rule, from an index kept on the request instead of a scan of the whole
+         prompt every step); its width follows the recent acceptance."""
+         constrained = isinstance(r.controller, LocalsController)
+-        if (hasattr(r.controller, "step_config") and not constrained) or not self._solo_drafts_ok(cache):
++        if not _DRAFTS or (hasattr(r.controller, "step_config") and not constrained) or not self._solo_drafts_ok(cache):
+             return []
+         if len(r.out) < getattr(r, "solo_resume", 0):  # recent drafts were rejected: plain pipelined steps for a while
+             return []
+@@ -1172,6 +1178,11 @@ class HybridBatchEngine(BatchEngine):
+                 c.cache[0] = mx.contiguous(mx.concatenate([old, qkv[:, :keep]], axis=1)[:, -n_keep:])
+             else:
+                 c.trim(drop)
++                if type(c) is BatchRotatingKVCache:
++                    # a pass of several tokens leaves the ring in order and window-1 + T keys long, so nothing the kept
++                    # tokens need was overwritten; the dropped keys are cut off too, as the next one-token step would
++                    # otherwise keep them in the window (it trims the ring from its length, not its _idx)
++                    c.keys, c.values = c.keys[..., : c._idx, :], c.values[..., : c._idx, :]
+ 
+     def _solo(self, r, cache, x: int, g, temp: float, arrive, dead: set):
+         """Steps for the only running row while it has a forced span or a draft to feed. Returns (requests that
+@@ -1201,6 +1212,7 @@ class HybridBatchEngine(BatchEngine):
+             self.counters["steps"] += 1
+             self.counters["rows"] += 1
+             self.counters["solo_steps"] = self.counters.get("solo_steps", 0) + 1
++            self.counters["draft_tokens"] = self.counters.get("draft_tokens", 0) + len(draft)  # (drafted / draft_tokens: acceptance)
+             self._growth_trim(1, 64)  # (a pass feeds up to 33 tokens)
+             logits = head_logits(self.lm, h[:, len(span):, :])[0]  # the last certain token, then each draft token
+             gs = g
+diff --git a/tests/test_flint.py b/tests/test_flint.py
+index df0a4a8..93c19e4 100644
+--- a/tests/test_flint.py
++++ b/tests/test_flint.py
+@@ -385,8 +385,7 @@ def test_a_left_padded_sliding_window_row_takes_its_spans_a_token_at_a_time():
+         def __init__(self, module):
+             self.lm = type("Model", (), {"model": body(module)})()
+ 
+-        def _solo_drafts_ok(self, cache):
+-            return False
++        _solo_flint = HybridBatchEngine._solo_flint
+ 
+     class Controller:
+         pass
+@@ -421,8 +420,8 @@ def test_a_left_padded_sliding_window_row_takes_its_spans_a_token_at_a_time():
+ def test_a_span_in_one_pass_is_its_tokens_one_at_a_time(kv_bits, monkeypatch):
+     """One request alone gets a forced span (tool-call syntax, a typed call's parameter names) in one pass
+     (HybridBatchEngine._solo): over Flint's batch caches, sliding-window rings past their window and full-attention
+-    layers in bf16 or 8 bits, that pass gives the logits one-token steps give and leaves the caches as they do. No
+-    drafts: a rejected draft would need those caches rewound."""
++    layers in bf16 or 8 bits, that pass gives the logits one-token steps give and leaves the caches as they do. So
++    does a pass with a draft whose tail is rejected and rewound (_solo_rewind), its rings wrapped past the window."""
+     from types import SimpleNamespace
+ 
+     from mlx_lm.models.cache import BatchRotatingKVCache, make_prompt_cache
+@@ -446,13 +445,24 @@ def test_a_span_in_one_pass_is_its_tokens_one_at_a_time(kv_bits, monkeypatch):
+     ref = mx.concatenate([m(mx.array([[t]]), cache=drip)[:, -1] for t in span]).astype(mx.float32)
+     got = m(mx.array([span]), cache=one)[0].astype(mx.float32)
+     assert float(mx.abs(got - ref).max()) <= 0.05 * (1 + float(mx.abs(ref).max()))
+-    for t in (5, 99, 300):  # one-token steps after the span, past the window again
+-        a, b = (m(mx.array([[t]]), cache=c)[0, -1].astype(mx.float32) for c in (drip, one))
+-        assert float(mx.abs(a - b).max()) <= 0.05 * (1 + float(mx.abs(a).max()))
+     eng = HybridBatchEngine.__new__(HybridBatchEngine)
+     eng.lm = m  # (as the engine has it: text_model(model), whose .model is the fused body)
+     r = SimpleNamespace(controller=SimpleNamespace())
+-    assert eng._solo_ok(r, one) and not eng._solo_drafts_ok(one)
++    assert eng._solo_ok(r, one) and eng._solo_drafts_ok(one)
++
++    def close(a, b):
++        return float(mx.abs(a - b).max()) <= 0.05 * (1 + float(mx.abs(a).max()))
++
++    # a token and a draft of 5, the last 3 rejected: the next steps (one token, then a span) see only what was kept
++    toks, drop = [40, 41, 42, 43, 44, 45], 3
++    got = m(mx.array([toks]), cache=one)[0].astype(mx.float32)
++    eng._solo_rewind(one, drop)
++    ref = mx.concatenate([m(mx.array([[t]]), cache=drip)[:, -1] for t in toks[:-drop]]).astype(mx.float32)
++    assert close(ref, got[:-drop])
++    for step in ([5], [99], [300, 17, 8], [6]):  # one-token steps and a span after the rewind, past the window again
++        a = mx.concatenate([m(mx.array([[t]]), cache=drip)[:, -1] for t in step]).astype(mx.float32)
++        b = m(mx.array([step]), cache=one)[0].astype(mx.float32)
++        assert close(a, b)
+ 
+ 
+ def test_banded_window_attention_is_the_masked_one(monkeypatch):
+diff --git a/tests/test_flint_streamed.py b/tests/test_flint_streamed.py
+index dea0b92..ce2abae 100644
+--- a/tests/test_flint_streamed.py
++++ b/tests/test_flint_streamed.py
+@@ -497,3 +497,39 @@ def test_experts_split_between_two_calls_give_the_bits_of_one(dtype):
+     two = fk.experts(x, res, routed, shared, slots, mx.where(first == 1, 2, 1).astype(mx.uint32), w, prev=contrib,
+                      shared_from_prev=True)
+     assert mx.array_equal(one, two).item()
++
++
++@pytest.mark.model
++def test_a_rejected_draft_rewound_leaves_no_trace_in_recursives_build():
++    """A draft verified in one pass and rejected (HybridBatchEngine._solo_rewind) leaves the caches as if it had never
++    been fed, its sliding-window rings wrapped past their 513 tokens: the steps after it, one token or several, give
++    the same logits whatever the rejected tokens were (the ring kept them in its window before)."""
++    from huggingface_hub import snapshot_download
++    from mlx_lm.models.cache import make_prompt_cache
++
++    from locals.hybrid_batch import HybridBatchEngine
++    from locals.kernels import head_logits
++    from locals.runtime import Runtime
++
++    try:
++        snapshot_download("RecursiveSI/flint-int4", local_files_only=True)
++    except Exception:  # noqa: BLE001
++        pytest.skip("RecursiveSI/flint-int4 is not in the local cache")
++    rt = Runtime.load("RecursiveSI/flint-int4", tune="auto")
++    prompt = rt.encode_chat("Count from 1 to 400 in words, comma separated: " + ", ".join(map(str, range(1, 240))))
++    assert len(prompt) > 600
++    rewind = HybridBatchEngine.__new__(HybridBatchEngine)._solo_rewind
++    feed = [prompt[-1]] + [int(t) for t in rt.encode_chat("one, two, three, four, five, six, seven")[-12:]]
++
++    def steps(junk):
++        c = [x.merge([x]) for x in make_prompt_cache(rt.model)]
++        mx.eval(rt.model.model(mx.array([prompt[:-1]]), c))
++        out = []
++        for s in range(0, len(feed) - 2, 3):  # two tokens and a rejected draft in one pass, then a one-token step
++            out.append(head_logits(rt.model, rt.model.model(mx.array([feed[s:s + 2] + junk]), c))[0, :2])
++            rewind(c, len(junk))
++            out.append(head_logits(rt.model, rt.model.model(mx.array([feed[s + 2:s + 3]]), c))[0])
++            mx.eval(out)
++        return mx.concatenate(out)
++
++    assert mx.array_equal(steps([11, 12, 13]), steps([500, 7000, 42])).item()
+-- 
+2.52.0
+

@@ -1,0 +1,5 @@
+reap192-nodraft prompt0 run0: 1024 tokens, decode 30.5 tok/s, ttft 1.3s
+reap192-nodraft prompt0 run1: 1024 tokens, decode 31.7 tok/s, ttft 0.9s
+reap192-nodraft prompt1 run0: 1024 tokens, decode 32.1 tok/s, ttft 1.2s
+reap192-nodraft prompt1 run1: 1024 tokens, decode 32.2 tok/s, ttft 1.1s
+{"label": "reap192-nodraft", "gpu_peak_mb": 8852.7878, "decode_tps_mean": 31.611831734029845, "runs": [30.515103147394402, 31.72682308746493, 32.052170636886494, 32.15323006437356], "acceptance": null, "drafted": 0, "draft_tokens": 0}
